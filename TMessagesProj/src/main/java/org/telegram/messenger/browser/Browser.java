@@ -254,7 +254,7 @@ public class Browser {
         if (tryTelegraph) {
             try {
                 String host = AndroidUtilities.getHostAuthority(uri);
-                if (isTelegraphUrl(host, true) || "www2.teamgram.net".equalsIgnoreCase(host) && (uri.toString().toLowerCase().contains("www2.teamgram.net/faq") || uri.toString().toLowerCase().contains("www2.teamgram.net/privacy") || uri.toString().toLowerCase().contains("www2.teamgram.net/blog"))) {
+                if (UserConfig.getInstance(UserConfig.selectedAccount).getCurrentUser() != null && (isTelegraphUrl(host, true) || "teamgram.net".equalsIgnoreCase(host) && (uri.toString().toLowerCase().contains("teamgram.net/faq") || uri.toString().toLowerCase().contains("teamgram.net/privacy") || uri.toString().toLowerCase().contains("teamgram.net/blog")))) {
                     final AlertDialog[] progressDialog = new AlertDialog[] {
                         new AlertDialog(context, AlertDialog.ALERT_TYPE_SPINNER)
                     };
