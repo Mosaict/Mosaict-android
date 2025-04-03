@@ -34625,7 +34625,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                     if (messageObject != null && messageObject.messageOwner.media instanceof TLRPC.TL_messageMediaWebPage && messageObject.messageOwner.media.webpage != null && messageObject.messageOwner.media.webpage.cached_page != null) {
                         String lowerUrl = urlFinal.toLowerCase();
                         String lowerUrl2 = messageObject.messageOwner.media.webpage.url.toLowerCase();
-                        if ((lowerUrl.contains("telegram.org/blog") || Browser.isTelegraphUrl(lowerUrl, false) || lowerUrl.contains("teamgram.me/iv")) && (lowerUrl.contains(lowerUrl2) || lowerUrl2.contains(lowerUrl))) {
+                        if ((lowerUrl.contains("teamgram.net/blog") || Browser.isTelegraphUrl(lowerUrl, false) || lowerUrl.contains("teamgram.me/iv")) && (lowerUrl.contains(lowerUrl2) || lowerUrl2.contains(lowerUrl))) {
                             if (LaunchActivity.instance != null && LaunchActivity.instance.getBottomSheetTabs() != null && LaunchActivity.instance.getBottomSheetTabs().tryReopenTab(messageObject) != null) {
                                 return;
                             }
@@ -38821,7 +38821,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             cell.invalidate();
         } : null;
         if (urlFinal.startsWith("tg2:privatepost") || urlFinal.startsWith("tg2://privatepost")) {
-            String urlTmp = urlFinal.replace("tg:privatepost", "tg2://telegram.org").replace("tg2://privatepost", "tg2://telegram.org");
+            String urlTmp = urlFinal.replace("tg2:privatepost", "tg2://teamgram.net").replace("tg2://privatepost", "tg2://teamgram.net");
             Uri data = Uri.parse(urlTmp);
             int messageId = Utilities.parseInt(data.getQueryParameter("post"));
             long channelId = Utilities.parseLong(data.getQueryParameter("channel"));
