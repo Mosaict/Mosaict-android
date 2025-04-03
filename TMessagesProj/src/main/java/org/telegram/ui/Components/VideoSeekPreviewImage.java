@@ -361,7 +361,7 @@ public class VideoSeekPreviewImage extends View {
         Utilities.globalQueue.postRunnable(loadRunnable = () -> {
             String scheme = uri.getScheme();
             String path;
-            if ("tg".equals(scheme)) {
+            if ("tg2".equals(scheme)) {
                 int currentAccount = Utilities.parseInt(uri.getQueryParameter("account"));
                 final Object parentObject = FileLoader.getInstance(currentAccount).getParentObject(Utilities.parseInt(uri.getQueryParameter("rid")));
                 final TLRPC.TL_document document = new TLRPC.TL_document();

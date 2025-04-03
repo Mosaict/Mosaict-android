@@ -376,7 +376,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     Uri uri = intent.getData();
                     if (uri != null) {
                         String url = uri.toString().toLowerCase();
-                        isProxy = url.startsWith("tg:proxy") || url.startsWith("tg://proxy") || url.startsWith("tg:socks") || url.startsWith("tg://socks");
+                        isProxy = url.startsWith("tg2:proxy") || url.startsWith("tg2://proxy") || url.startsWith("tg2:socks") || url.startsWith("tg2://socks");
                     }
                 }
             }
@@ -2494,9 +2494,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                     }
                                     break;
                                 }
-                                case "tg": {
+                                case "tg2": {
                                     String url = data.toString();
-                                    if (url.startsWith("tg:premium_offer") || url.startsWith("tg://premium_offer")) {
+                                    if (url.startsWith("tg2:premium_offer") || url.startsWith("tg2://premium_offer")) {
                                         String finalUrl = url;
                                         AndroidUtilities.runOnUIThread(() -> {
                                         if (!actionBarLayout.getFragmentStack().isEmpty()) {
@@ -2504,8 +2504,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             Uri uri = Uri.parse(finalUrl);
                                             fragment.presentFragment(new PremiumPreviewFragment(uri.getQueryParameter("ref")));
                                         }});
-                                    } else if (url.startsWith("tg:resolve") || url.startsWith("tg://resolve")) {
-                                        url = url.replace("tg:resolve", "tg://telegram.org").replace("tg://resolve", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:resolve") || url.startsWith("tg2://resolve")) {
+                                        url = url.replace("tg2:resolve", "tg2://teamgram.net").replace("tg2://resolve", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         username = data.getQueryParameter("domain");
                                         if (username == null) {
@@ -2581,20 +2581,20 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                                 }
                                             }
                                         }
-                                    } else if (url.startsWith("tg:invoice") || url.startsWith("tg://invoice")) {
-                                        url = url.replace("tg:invoice", "tg://invoice");
+                                    } else if (url.startsWith("tg2:invoice") || url.startsWith("tg2://invoice")) {
+                                        url = url.replace("tg2:invoice", "tg2://invoice");
                                         data = Uri.parse(url);
                                         inputInvoiceSlug = data.getQueryParameter("slug");
-                                    } else if (url.startsWith("tg:nft") || url.startsWith("tg://nft")) {
-                                        url = url.replace("tg:nft", "tg://nft");
+                                    } else if (url.startsWith("tg2:nft") || url.startsWith("tg2://nft")) {
+                                        url = url.replace("tg2:nft", "tg2://nft");
                                         data = Uri.parse(url);
                                         uniqueGiftSlug = data.getQueryParameter("slug");
-                                    } else if (url.startsWith("tg:contact") || url.startsWith("tg://contact")) {
-                                        url = url.replace("tg:contact", "tg://contact");
+                                    } else if (url.startsWith("tg2:contact") || url.startsWith("tg2://contact")) {
+                                        url = url.replace("tg2:contact", "tg2://contact");
                                         data = Uri.parse(url);
                                         contactToken = data.getQueryParameter("token");
-                                    } else if (url.startsWith("tg:privatepost") || url.startsWith("tg://privatepost")) {
-                                        url = url.replace("tg:privatepost", "tg://telegram.org").replace("tg://privatepost", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:privatepost") || url.startsWith("tg2://privatepost")) {
+                                        url = url.replace("tg2:privatepost", "tg2://teamgram.net").replace("tg2://privatepost", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         messageId = Utilities.parseInt(data.getQueryParameter("post"));
                                         channelId = Utilities.parseLong(data.getQueryParameter("channel"));
@@ -2616,8 +2616,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         if (commentId == 0) {
                                             commentId = null;
                                         }
-                                    } else if (url.startsWith("tg:bg") || url.startsWith("tg://bg")) {
-                                        url = url.replace("tg:bg", "tg://telegram.org").replace("tg://bg", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:bg") || url.startsWith("tg2://bg")) {
+                                        url = url.replace("tg2:bg", "tg2://teamgram.net").replace("tg2://bg", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         wallPaper = new TLRPC.TL_wallPaper();
                                         wallPaper.settings = new TLRPC.TL_wallPaperSettings();
@@ -2700,20 +2700,20 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
 
                                             }
                                         }
-                                    } else if (url.startsWith("tg:join") || url.startsWith("tg://join")) {
-                                        url = url.replace("tg:join", "tg://telegram.org").replace("tg://join", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:join") || url.startsWith("tg2://join")) {
+                                        url = url.replace("tg2:join", "tg2://teamgram.net").replace("tg2://join", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         group = data.getQueryParameter("invite");
-                                    } else if (url.startsWith("tg:addstickers") || url.startsWith("tg://addstickers")) {
-                                        url = url.replace("tg:addstickers", "tg://telegram.org").replace("tg://addstickers", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:addstickers") || url.startsWith("tg2://addstickers")) {
+                                        url = url.replace("tg2:addstickers", "tg2://teamgram.net").replace("tg2://addstickers", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         sticker = data.getQueryParameter("set");
-                                    } else if (url.startsWith("tg:addemoji") || url.startsWith("tg://addemoji")) {
-                                        url = url.replace("tg:addemoji", "tg://telegram.org").replace("tg://addemoji", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:addemoji") || url.startsWith("tg2://addemoji")) {
+                                        url = url.replace("tg2:addemoji", "tg2://teamgram.net").replace("tg2://addemoji", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         emoji = data.getQueryParameter("set");
-                                    } else if (url.startsWith("tg:msg") || url.startsWith("tg://msg") || url.startsWith("tg://share") || url.startsWith("tg:share")) {
-                                        url = url.replace("tg:msg", "tg://telegram.org").replace("tg://msg", "tg://telegram.org").replace("tg://share", "tg://telegram.org").replace("tg:share", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:msg") || url.startsWith("tg2://msg") || url.startsWith("tg2://share") || url.startsWith("tg2:share")) {
+                                        url = url.replace("tg2:msg", "tg2://teamgram.net").replace("tg2://msg", "tg2://teamgram.net").replace("tg2://share", "tg2://teamgram.net").replace("tg2:share", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         message = data.getQueryParameter("url");
                                         if (message == null) {
@@ -2732,22 +2732,22 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         while (message.endsWith("\n")) {
                                             message = message.substring(0, message.length() - 1);
                                         }
-                                    } else if (url.startsWith("tg:confirmphone") || url.startsWith("tg://confirmphone")) {
-                                        url = url.replace("tg:confirmphone", "tg://telegram.org").replace("tg://confirmphone", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:confirmphone") || url.startsWith("tg2://confirmphone")) {
+                                        url = url.replace("tg2:confirmphone", "tg2://teamgram.net").replace("tg2://confirmphone", "tg2://teamgram.net");
                                         data = Uri.parse(url);
 
                                         phone = data.getQueryParameter("phone");
                                         phoneHash = data.getQueryParameter("hash");
-                                    } else if (url.startsWith("tg:login") || url.startsWith("tg://login")) {
-                                        url = url.replace("tg:login", "tg://telegram.org").replace("tg://login", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:login") || url.startsWith("tg2://login")) {
+                                        url = url.replace("tg2:login", "tg2://teamgram.net").replace("tg2://login", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         login = data.getQueryParameter("token");
                                         int intCode = Utilities.parseInt(data.getQueryParameter("code"));
                                         if (intCode != 0) {
                                             code = "" + intCode;
                                         }
-                                    } else if (url.startsWith("tg:openmessage") || url.startsWith("tg://openmessage")) {
-                                        url = url.replace("tg:openmessage", "tg://telegram.org").replace("tg://openmessage", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:openmessage") || url.startsWith("tg2://openmessage")) {
+                                        url = url.replace("tg2:openmessage", "tg2://teamgram.net").replace("tg2://openmessage", "tg2://teamgram.net");
                                         data = Uri.parse(url);
 
                                         String userID = data.getQueryParameter("user_id");
@@ -2770,8 +2770,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             } catch (NumberFormatException ignore) {
                                             }
                                         }
-                                    } else if (url.startsWith("tg:passport") || url.startsWith("tg://passport") || url.startsWith("tg:secureid")) {
-                                        url = url.replace("tg:passport", "tg://telegram.org").replace("tg://passport", "tg://telegram.org").replace("tg:secureid", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:passport") || url.startsWith("tg2://passport") || url.startsWith("tg2:secureid")) {
+                                        url = url.replace("tg2:passport", "tg2://teamgram.net").replace("tg2://passport", "tg2://teamgram.net").replace("tg2:secureid", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         auth = new HashMap<>();
                                         String scope = data.getQueryParameter("scope");
@@ -2784,15 +2784,15 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         auth.put("scope", scope);
                                         auth.put("public_key", data.getQueryParameter("public_key"));
                                         auth.put("callback_url", data.getQueryParameter("callback_url"));
-                                    } else if (url.startsWith("tg:setlanguage") || url.startsWith("tg://setlanguage")) {
-                                        url = url.replace("tg:setlanguage", "tg://telegram.org").replace("tg://setlanguage", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:setlanguage") || url.startsWith("tg2://setlanguage")) {
+                                        url = url.replace("tg2:setlanguage", "tg2://teamgram.net").replace("tg2://setlanguage", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         lang = data.getQueryParameter("lang");
-                                    } else if (url.startsWith("tg:addtheme") || url.startsWith("tg://addtheme")) {
-                                        url = url.replace("tg:addtheme", "tg://telegram.org").replace("tg://addtheme", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:addtheme") || url.startsWith("tg2://addtheme")) {
+                                        url = url.replace("tg2:addtheme", "tg2://teamgram.net").replace("tg2://addtheme", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         theme = data.getQueryParameter("slug");
-                                    } else if (url.startsWith("tg:settings") || url.startsWith("tg://settings")) {
+                                    } else if (url.startsWith("tg2:settings") || url.startsWith("tg2://settings")) {
                                         if (url.contains("themes") || url.contains("theme")) {
                                             open_settings = 2;
                                         } else if (url.contains("devices")) {
@@ -2820,8 +2820,8 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         } else {
                                             open_settings = 1;
                                         }
-                                    } else if ((url.startsWith("tg:search") || url.startsWith("tg://search"))) {
-                                        url = url.replace("tg:search", "tg://telegram.org").replace("tg://search", "tg://telegram.org");
+                                    } else if ((url.startsWith("tg2:search") || url.startsWith("tg2://search"))) {
+                                        url = url.replace("tg2:search", "tg2://teamgram.net").replace("tg2://search", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         searchQuery = data.getQueryParameter("query");
                                         if (searchQuery != null) {
@@ -2829,9 +2829,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         } else {
                                             searchQuery = "";
                                         }
-                                    } else if ((url.startsWith("tg:calllog") || url.startsWith("tg://calllog"))) {
+                                    } else if ((url.startsWith("tg2:calllog") || url.startsWith("tg2://calllog"))) {
                                         showCallLog = true;
-                                    } else if ((url.startsWith("tg:call") || url.startsWith("tg://call"))) {
+                                    } else if ((url.startsWith("tg2:call") || url.startsWith("tg2://call"))) {
                                         if (UserConfig.getInstance(currentAccount).isClientActivated()) {
                                             final String extraForceCall = "extra_force_call";
                                             if (ContactsController.getInstance(currentAccount).contactsLoaded || intent.hasExtra(extraForceCall)) {
@@ -2868,10 +2868,10 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                                 ContactsLoadingObserver.observe((contactsLoaded) -> handleIntent(copyIntent, true, false, false), 1000);
                                             }
                                         }
-                                    } else if ((url.startsWith("tg:scanqr") || url.startsWith("tg://scanqr"))) {
+                                    } else if ((url.startsWith("tg2:scanqr") || url.startsWith("tg2://scanqr"))) {
                                         scanQr = true;
-                                    } else if ((url.startsWith("tg:addcontact") || url.startsWith("tg://addcontact"))) {
-                                        url = url.replace("tg:addcontact", "tg://telegram.org").replace("tg://addcontact", "tg://telegram.org");
+                                    } else if ((url.startsWith("tg2:addcontact") || url.startsWith("tg2://addcontact"))) {
+                                        url = url.replace("tg2:addcontact", "tg2://teamgram.net").replace("tg2://addcontact", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         newContactName = data.getQueryParameter("name");
 
@@ -2881,16 +2881,16 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                             newContactPhone = phoneParams.get(0);
                                         }
                                         newContact = true;
-                                    } else if (url.startsWith("tg:addlist") || url.startsWith("tg://addlist")) {
-                                        url = url.replace("tg:addlist", "tg://telegram.org").replace("tg://addlist", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:addlist") || url.startsWith("tg2://addlist")) {
+                                        url = url.replace("tg2:addlist", "tg2://teamgram.net").replace("tg2://addlist", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         folderSlug = data.getQueryParameter("slug");
-                                    } else if (url.startsWith("tg:message") || url.startsWith("tg://message")) {
-                                        url = url.replace("tg:message", "tg://telegram.org").replace("tg://message", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:message") || url.startsWith("tg2://message")) {
+                                        url = url.replace("tg2:message", "tg2://teamgram.net").replace("tg2://message", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         chatLinkSlug = data.getQueryParameter("slug");
-                                    } else if (url.startsWith("tg:stars_topup") || url.startsWith("tg://stars_topup")) {
-                                        url = url.replace("tg:stars_topup", "tg://telegram.org").replace("tg://stars_topup", "tg://telegram.org");
+                                    } else if (url.startsWith("tg2:stars_topup") || url.startsWith("tg2://stars_topup")) {
+                                        url = url.replace("tg2:stars_topup", "tg2://teamgram.net").replace("tg2://stars_topup", "tg2://teamgram.net");
                                         data = Uri.parse(url);
                                         long balance = 0;
                                         try {
@@ -2902,7 +2902,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                                         String purpose = data.getQueryParameter("purpose");
                                         StarsController.getInstance(intentAccount[0]).showStarsTopup(this, balance, purpose);
                                     } else {
-                                        unsupportedUrl = url.replace("tg://", "").replace("tg:", "");
+                                        unsupportedUrl = url.replace("tg2://", "").replace("tg2:", "");
                                         int index;
                                         if ((index = unsupportedUrl.indexOf('?')) >= 0) {
                                             unsupportedUrl = unsupportedUrl.substring(0, index);
@@ -2913,7 +2913,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                             }
                         }
                         if (intent.hasExtra(EXTRA_ACTION_TOKEN)) {
-                            final boolean success = UserConfig.getInstance(currentAccount).isClientActivated() && "tg".equals(scheme) && unsupportedUrl == null;
+                            final boolean success = UserConfig.getInstance(currentAccount).isClientActivated() && "tg2".equals(scheme) && unsupportedUrl == null;
                             final Action assistAction = new AssistActionBuilder()
                                     .setActionToken(intent.getStringExtra(EXTRA_ACTION_TOKEN))
                                     .setActionStatus(success ? Action.Builder.STATUS_TYPE_COMPLETED : Action.Builder.STATUS_TYPE_FAILED)
@@ -3299,7 +3299,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     AlertDialog progressDialog = new AlertDialog(LaunchActivity.this, AlertDialog.ALERT_TYPE_SPINNER);
                     progressDialog.setCanCancel(false);
                     progressDialog.show();
-                    byte[] token = Base64.decode(code.substring("tg://login?token=".length()), Base64.URL_SAFE);
+                    byte[] token = Base64.decode(code.substring("tg2://login?token=".length()), Base64.URL_SAFE);
                     TLRPC.TL_auth_acceptLoginToken req = new TLRPC.TL_auth_acceptLoginToken();
                     req.token = token;
                     ConnectionsManager.getInstance(currentAccount).sendRequest(req, (response, error) -> AndroidUtilities.runOnUIThread(() -> {

@@ -38820,8 +38820,8 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             progressDialogLinkSpan = span;
             cell.invalidate();
         } : null;
-        if (urlFinal.startsWith("tg:privatepost") || urlFinal.startsWith("tg://privatepost")) {
-            String urlTmp = urlFinal.replace("tg:privatepost", "tg://telegram.org").replace("tg://privatepost", "tg://telegram.org");
+        if (urlFinal.startsWith("tg2:privatepost") || urlFinal.startsWith("tg2://privatepost")) {
+            String urlTmp = urlFinal.replace("tg:privatepost", "tg2://telegram.org").replace("tg2://privatepost", "tg2://telegram.org");
             Uri data = Uri.parse(urlTmp);
             int messageId = Utilities.parseInt(data.getQueryParameter("post"));
             long channelId = Utilities.parseLong(data.getQueryParameter("channel"));
@@ -38878,8 +38878,8 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                         }
                     }
                     return true;
-                } else if (urlFinal.startsWith("tg:resolve") || urlFinal.startsWith("tg://resolve")) {
-                    String urlTmp = urlFinal.replace("tg:resolve", "tg://telegram.org").replace("tg://resolve", "tg://telegram.org");
+                } else if (urlFinal.startsWith("tg2:resolve") || urlFinal.startsWith("tg2://resolve")) {
+                    String urlTmp = urlFinal.replace("tg2:resolve", "tg2://teamgram.net").replace("tg2://resolve", "tg2://teamgram.net");
                     Uri data = Uri.parse(urlTmp);
                     String usernameE = data.getQueryParameter("domain").toLowerCase();
                     int messageId = Utilities.parseInt(data.getQueryParameter("post"));

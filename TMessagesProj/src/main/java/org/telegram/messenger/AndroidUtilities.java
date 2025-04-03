@@ -1255,7 +1255,7 @@ public class AndroidUtilities {
             Linkify.addLinks(text, Linkify.PHONE_NUMBERS);
         }
         if ((mask & Linkify.WEB_URLS) != 0) {
-            gatherLinks(links, text, LinkifyPort.WEB_URL, new String[]{"http://", "https://", "tg://", "tonsite://"}, sUrlMatchFilter, internalOnly);
+            gatherLinks(links, text, LinkifyPort.WEB_URL, new String[]{"http://", "https://", "tg2://", "tonsite://"}, sUrlMatchFilter, internalOnly);
         }
         pruneOverlaps(links);
         if (links.size() == 0) {
@@ -4466,10 +4466,10 @@ public class AndroidUtilities {
                                 }
                             }
                         }
-                    } else if (scheme.equals("tg")) {
+                    } else if (scheme.equals("tg2")) {
                         String url = data.toString();
-                        if (url.startsWith("tg:proxy") || url.startsWith("tg://proxy") || url.startsWith("tg:socks") || url.startsWith("tg://socks")) {
-                            url = url.replace("tg:proxy", "tg://telegram.org").replace("tg://proxy", "tg://telegram.org").replace("tg://socks", "tg://telegram.org").replace("tg:socks", "tg://telegram.org");
+                        if (url.startsWith("tg2:proxy") || url.startsWith("tg2://proxy") || url.startsWith("tg2:socks") || url.startsWith("tg2://socks")) {
+                            url = url.replace("tg2:proxy", "tg2://teamgram.net").replace("tg2://proxy", "tg2://teamgram.net").replace("tg2://socks", "tg2://teamgram.net").replace("tg2:socks", "tg2://teamgram.net.");
                             data = Uri.parse(url);
                             address = data.getQueryParameter("server");
                             if (AndroidUtilities.checkHostForPunycode(address)) {
@@ -6396,8 +6396,8 @@ public class AndroidUtilities {
                     }
                     break;
                 }
-                case "tg": {
-                    if (url.startsWith("tg:resolve") || url.startsWith("tg://resolve")) {
+                case "tg2": {
+                    if (url.startsWith("tg2:resolve") || url.startsWith("tg2://resolve")) {
                         return !TextUtils.isEmpty(uri.getQueryParameter("appname"));
                     }
                     break;

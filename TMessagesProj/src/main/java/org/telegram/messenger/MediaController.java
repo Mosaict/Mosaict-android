@@ -3636,7 +3636,7 @@ public class MediaController implements AudioManager.OnAudioFocusChangeListener,
                             "&rid=" + reference +
                             "&name=" + URLEncoder.encode(FileLoader.getDocumentFileName(document), "UTF-8") +
                             "&reference=" + Utilities.bytesToHex(document.file_reference != null ? document.file_reference : new byte[0]);
-                    Uri uri = Uri.parse("tg://" + messageObject.getFileName() + params);
+                    Uri uri = Uri.parse("tg2://" + messageObject.getFileName() + params);
                     videoPlayer.preparePlayer(uri, "other");
                 } catch (Exception e) {
                     FileLog.e(e);
@@ -3741,7 +3741,7 @@ public class MediaController implements AudioManager.OnAudioFocusChangeListener,
                             "&rid=" + reference +
                             "&name=" + URLEncoder.encode(FileLoader.getDocumentFileName(document), "UTF-8") +
                             "&reference=" + Utilities.bytesToHex(document.file_reference != null ? document.file_reference : new byte[0]);
-                    Uri uri = Uri.parse("tg://" + messageObject.getFileName() + params);
+                    Uri uri = Uri.parse("tg2://" + messageObject.getFileName() + params);
                     audioPlayer.preparePlayer(uri, "other");
                     isStreamingCurrentAudio = true;
                 }

@@ -4768,7 +4768,7 @@ public class PeerStoriesView extends SizeNotifierFrameLayout implements Notifica
                                 "&name=" + URLEncoder.encode(FileLoader.getDocumentFileName(document), "UTF-8") +
                                 "&reference=" + Utilities.bytesToHex(document.file_reference != null ? document.file_reference : new byte[0]) +
                                 "&sid=" + storyItem.id + "&did=" + storyItem.dialogId;
-                        uriesToPrepare.add(Uri.parse("tg://" + FileLoader.getAttachFileName(document) + params));
+                        uriesToPrepare.add(Uri.parse("tg2://" + FileLoader.getAttachFileName(document) + params));
                         documentsToPrepare.add(document);
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
@@ -4998,7 +4998,7 @@ public class PeerStoriesView extends SizeNotifierFrameLayout implements Notifica
                                 "&name=" + URLEncoder.encode(FileLoader.getDocumentFileName(document), "UTF-8") +
                                 "&reference=" + Utilities.bytesToHex(document.file_reference != null ? document.file_reference : new byte[0]) +
                                 "&sid=" + currentStory.storyItem.id + "&did=" + currentStory.storyItem.dialogId;
-                        uri = Uri.parse("tg://" + FileLoader.getAttachFileName(document) + params);
+                        uri = Uri.parse("tg2://" + FileLoader.getAttachFileName(document) + params);
                         FileLog.d("StoryViewer requestVideoPlayer(" + t + "): playing from " + uri);
                         videoDuration = (long) (MessageObject.getDocumentDuration(document) * 1000);
                     } catch (Exception exception) {

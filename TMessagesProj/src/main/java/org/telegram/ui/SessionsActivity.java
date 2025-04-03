@@ -1160,7 +1160,7 @@ public class SessionsActivity extends BaseFragment implements NotificationCenter
                 this.error = null;
                 AndroidUtilities.runOnUIThread(() -> {
                     try {
-                        String code = link.substring("tg://login?token=".length());
+                        String code = link.substring("tg2://login?token=".length());
                         code = code.replaceAll("\\/", "_");
                         code = code.replaceAll("\\+", "-");
                         byte[] token = Base64.decode(code, Base64.URL_SAFE);
