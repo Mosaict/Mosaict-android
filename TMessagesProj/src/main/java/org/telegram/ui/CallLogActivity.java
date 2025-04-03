@@ -1100,7 +1100,7 @@ public class CallLogActivity extends BaseFragment implements NotificationCenter.
 				case 5: {
 					TextInfoPrivacyCell cell = (TextInfoPrivacyCell) holder.itemView;
 					if (position == createLinkInfoRow) {
-						cell.setText("You can create a link that will allow your friends on Telegram to join the call.");
+						cell.setText("You can create a link that will allow your friends on Teamgram to join the call.");
 						cell.setFixedSize(0);
 					} else {
 						cell.setText(null);

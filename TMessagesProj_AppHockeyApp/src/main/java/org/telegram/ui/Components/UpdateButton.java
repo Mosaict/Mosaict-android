@@ -54,7 +54,7 @@ public class UpdateButton extends IUpdateButton {
             if (file == null) return;
             Activity activity = AndroidUtilities.findActivity(getContext());
             if (activity == null) return;
-            AndroidUtilities.openForView(file, "Telegram.apk", "application/vnd.android.package-archive", activity, null, false);
+            AndroidUtilities.openForView(file, "Teamgram.apk", "application/vnd.android.package-archive", activity, null, false);
         });
 
         icon = new RadialProgress2(this);
