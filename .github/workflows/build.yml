@@ -1,0 +1,64 @@
+name: Build Telegram Android
+
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'info'
+        type: choice
+        options:
+          - info
+          - debug
+      tags:
+        description: 'Tags to run'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Install Android SDK and NDK
+        uses: android-actions/setup-android@v2
+        with:
+          sdkVersion: '30.0.3'
+          ndkVersion: '20.1.5948950'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+        
+      # 添加这个步骤: 先清理项目
+      - name: Clean project
+        run: ./gradlew clean
+
+      - name: Build APK
+        run: ./gradlew assembleRelease
+
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.RELEASE_KEYSTORE }}
+          alias: ${{ secrets.RELEASE_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.RELEASE_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.RELEASE_KEY_PASSWORD }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: telegram-android
+          path: app/build/outputs/apk/release/app-release.apk
