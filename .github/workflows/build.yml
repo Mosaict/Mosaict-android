@@ -16,6 +16,15 @@ on:
         required: false
         type: boolean
         default: false
+      abi:
+        description: 'Target ABI'
+        required: true
+        type: choice
+        options:
+          - armeabi-v7a
+          - arm64-v8a
+          - x86
+          - x86_64
 
 jobs:
   build:
@@ -40,18 +49,24 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-        
-      # 添加这个步骤: 先清理项目
-      - name: Clean project
-        run: ./gradlew clean
+
+      # 添加：清理 Gradle 缓存
+      - name: Clean Gradle cache
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean
+
+      # 添加：删除 build 目录
+      - name: Remove build directory
+        run: rm -rf TMessagesProj_App/build
 
       - name: Build APK
-        run: ./gradlew assembleRelease
+        run: ./gradlew assembleRelease -PabiFilters=${{ github.event.inputs.abi }}
 
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: app/build/outputs/apk/release
+          releaseDirectory: TMessagesProj_App/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.RELEASE_KEYSTORE }}
           alias: ${{ secrets.RELEASE_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.RELEASE_STORE_PASSWORD }}
@@ -61,4 +76,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: telegram-android
-          path: app/build/outputs/apk/release/app-release.apk
+          path: TMessagesProj_App/build/outputs/apk/release/app-release.apk
