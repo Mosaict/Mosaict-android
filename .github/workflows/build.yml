@@ -29,6 +29,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    #timeout-minutes: 60  # 增加构建超时时间
 
     steps:
       - name: Checkout code
@@ -46,22 +47,32 @@ jobs:
         with:
           sdkVersion: '30.0.3'
           ndkVersion: '20.1.5948950'
-      - name: Grant execute permission for gradlew and assemble
-        uses: android-actions/gradle-task@v2
-        with:
-          gradle-tasks: assembleRelease clean
-      - name: Clean Gradle cache and remove temp files
-        run: |
-          
-          rm -rf ~/.gradle/caches/
-          rm -rf ~/.gradle/wrapper/
-          rm -rf ./gradle
-          rm -rf TMessagesProj_App/build
-          find . -name "build" -type d -exec rm -rf {} +
-          find . -name "*.iml" -exec rm -rf {} +
 
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # ----------------- 清理力度加强 -----------------
+      - name: Stop Gradle Daemon
+        run: ./gradlew --stop # 尝试先停止 Gradle 守护进程
+
+      - name: Clean Gradle cache (Aggressive)
+        run: |
+          rm -rf ~/.gradle/caches/
+          rm -rf ~/.gradle/daemon/
+          rm -rf ~/.gradle/wrapper/
+          rm -rf TMessagesProj_App/.gradle #  清理app目录中的.gradle
+          find . -name "build" -type d -exec rm -rf {} +  # 删除所有 build 目录
+          df -h #  构建前后检查磁盘空间
+      - name: Check disk space (Before Build)
+        run: df -h
+
+      # ----------------- 构建时减少中间文件 -----------------
+        #    尝试关闭一些没必要的任务
       - name: Build APK
-        run: ./gradlew assembleRelease -PabiFilters=${{ github.event.inputs.abi }}
+        run: ./gradlew assembleRelease -Pandroid.enableDexingArtifactTransform=false -Pandroid.useNewApkCreator=false -Porg.gradle.configureondemand=false  -PabiFilters=${{ github.event.inputs.abi }}
+
+      - name: Check disk space (After Build)
+        run: df -h
 
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
