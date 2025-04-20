@@ -50,15 +50,16 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      # 添加：清理 Gradle 缓存
-      - name: Clean Gradle cache
+      - name: Clean Gradle cache and remove temp files
         run: |
           chmod +x ./gradlew
-          ./gradlew clean
-
-      # 添加：删除 build 目录
-      - name: Remove build directory
-        run: rm -rf TMessagesProj_App/build
+          ./gradlew cleanBuildCache
+          rm -rf ~/.gradle/caches/
+          rm -rf ~/.gradle/wrapper/
+          rm -rf ./gradle
+          rm -rf TMessagesProj_App/build
+          find . -name "build" -type d -exec rm -rf {} +
+          find . -name "*.iml" -exec rm -rf {} +
 
       - name: Build APK
         run: ./gradlew assembleRelease -PabiFilters=${{ github.event.inputs.abi }}
