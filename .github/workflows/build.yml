@@ -69,7 +69,7 @@ jobs:
       # ----------------- 构建时减少中间文件 -----------------
         #    尝试关闭一些没必要的任务
       - name: Build APK
-        run: ./gradlew assembleRelease -Pandroid.enableDexingArtifactTransform=false -Porg.gradle.configureondemand=false  -PabiFilters=${{ github.event.inputs.abi }}
+        run: ./gradlew assembleRelease -Porg.gradle.configureondemand=false  -PabiFilters=${{ github.event.inputs.abi }}
 
       - name: Check disk space (After Build)
         run: df -h
