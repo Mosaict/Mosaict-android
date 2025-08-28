@@ -69,7 +69,26 @@ jobs:
       # ----------------- 构建时减少中间文件 -----------------
         #    尝试关闭一些没必要的任务
       - name: Build APK
-        run: ./gradlew assembleRelease -Porg.gradle.configureondemand=false  -PabiFilters=${{ github.event.inputs.abi }}
+        run: |
+          ./gradlew assembleRelease -Porg.gradle.configureondemand=false -PabiFilters=${{ github.event.inputs.abi }} --info --stacktrace
+          echo "Build completed, checking output..."
+
+      - name: Verify APK exists
+        run: |
+          echo "Checking APK output directory..."
+          ls -la TMessagesProj_App/build/outputs/apk/release/ || echo "Directory not found"
+          find . -name "*.apk" -type f || echo "No APK files found"
+          if [ -f "TMessagesProj_App/build/outputs/apk/release/app.apk" ]; then
+            echo "✅ APK file found successfully"
+            ls -lh "TMessagesProj_App/build/outputs/apk/release/app.apk"
+          else
+            echo "❌ ERROR: APK file not found!"
+            echo "Current directory structure:"
+            find . -name "build" -type d
+            echo "Build directory contents:"
+            find . -name "build" -type d -exec ls -la {} \;
+            exit 1
+          fi
 
       - name: Check disk space (After Build)
         run: df -h
