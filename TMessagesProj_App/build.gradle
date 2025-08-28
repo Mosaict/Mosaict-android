@@ -90,7 +90,7 @@ android {
         release {
             debuggable false
             jniDebuggable false
-            signingConfig signingConfigs.release
+            // signingConfig signingConfigs.release  // 注释掉签名配置，生成未签名APK
             minifyEnabled true
             shrinkResources false
             multiDexEnabled true

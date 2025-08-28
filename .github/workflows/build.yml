@@ -68,7 +68,7 @@ jobs:
 
       # ----------------- 构建时减少中间文件 -----------------
         #    尝试关闭一些没必要的任务
-      - name: Build APK (Signed)
+      - name: Build APK (Unsigned)
         run: |
           ./gradlew assembleAfatRelease -Porg.gradle.configureondemand=false -PabiFilters=${{ github.event.inputs.abi }} --info --stacktrace
           echo "Build completed, checking output..."
@@ -79,12 +79,11 @@ jobs:
           echo "检查所有可能的 APK 位置..."
           find . -name "*.apk" -type f
           echo ""
-          echo "检查 afat flavor 的已签名 APK..."
+          echo "检查 afat flavor 的未签名 APK..."
           if [ -f "TMessagesProj_App/build/outputs/apk/afat/release/app.apk" ]; then
-            echo "✅ 成功找到已签名的 APK 文件 (afat flavor)"
+            echo "✅ 成功找到未签名的 APK 文件 (afat flavor)"
             ls -lh "TMessagesProj_App/build/outputs/apk/afat/release/app.apk"
-            echo "验证APK签名信息..."
-            apksigner verify --verbose "TMessagesProj_App/build/outputs/apk/afat/release/app.apk" || echo "APK签名验证完成"
+            echo "注意：这是未签名的APK，需要手动签名后才能安装"
           else
             echo "❌ 错误：找不到 afat flavor 的 APK 文件！"
             echo "当前目录结构："
@@ -97,8 +96,8 @@ jobs:
       - name: Check disk space (After Build)
         run: df -h
 
-      - name: Upload APK
+      - name: Upload APK (Unsigned)
         uses: actions/upload-artifact@v4
         with:
-          name: telegram-android
+          name: telegram-android-unsigned
           path: TMessagesProj_App/build/outputs/apk/afat/release/app.apk
