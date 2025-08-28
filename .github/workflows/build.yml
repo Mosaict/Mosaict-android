@@ -75,17 +75,19 @@ jobs:
 
       - name: Verify APK exists
         run: |
-          echo "Checking APK output directory..."
-          ls -la TMessagesProj_App/build/outputs/apk/release/ || echo "Directory not found"
-          find . -name "*.apk" -type f || echo "No APK files found"
-          if [ -f "TMessagesProj_App/build/outputs/apk/release/app.apk" ]; then
-            echo "✅ APK file found successfully"
-            ls -lh "TMessagesProj_App/build/outputs/apk/release/app.apk"
+          echo "正在检查 APK 输出目录..."
+          echo "检查所有可能的 APK 位置..."
+          find . -name "*.apk" -type f
+          echo ""
+          echo "检查 afat flavor 的 APK（这是主要的 release 版本）..."
+          if [ -f "TMessagesProj_App/build/outputs/apk/afat/release/app.apk" ]; then
+            echo "✅ 成功找到 APK 文件 (afat flavor)"
+            ls -lh "TMessagesProj_App/build/outputs/apk/afat/release/app.apk"
           else
-            echo "❌ ERROR: APK file not found!"
-            echo "Current directory structure:"
+            echo "❌ 错误：找不到 afat flavor 的 APK 文件！"
+            echo "当前目录结构："
             find . -name "build" -type d
-            echo "Build directory contents:"
+            echo "构建目录内容："
             find . -name "build" -type d -exec ls -la {} \;
             exit 1
           fi
@@ -96,7 +98,7 @@ jobs:
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
         with:
-          releaseDirectory: TMessagesProj_App/build/outputs/apk/release
+          releaseDirectory: TMessagesProj_App/build/outputs/apk/afat/release
           signingKeyBase64: ${{ secrets.RELEASE_KEYSTORE }}
           alias: ${{ secrets.RELEASE_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.RELEASE_STORE_PASSWORD }}
@@ -106,4 +108,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: telegram-android
-          path: TMessagesProj_App/build/outputs/apk/release/app-release.apk
+          path: TMessagesProj_App/build/outputs/apk/afat/release/app.apk
